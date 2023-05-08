@@ -1,0 +1,4 @@
+g++ -c -fPIC MathLib.cpp
+g++ -shared -o libMathLib.so MathLib.o
+
+// Это создаст файл libMathLib.so, который является динамической библиотекой

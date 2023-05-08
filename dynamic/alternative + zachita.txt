@@ -1,0 +1,140 @@
+
+
+cpp
+#include "math_operations.h"
+
+double MathOperations::add(double a, double b) {
+    return a + b;
+}
+
+double MathOperations::subtract(double a, double b) {
+    return a - b;
+}
+
+double MathOperations::multiply(double a, double b) {
+    return a * b;
+}
+
+double MathOperations::divide(double a, double b) {
+    if (b == 0) {
+        throw "Division by zero!";
+    }
+
+    return a / b;
+}
+
+
+
+
+cpp
+class MathOperations {
+    public:
+        static double add(double a, double b);
+        static double subtract(double a, double b);
+        static double multiply(double a, double b);
+        static double divide(double a, double b);
+};
+
+
+
+
+cpp
+#include <iostream>
+#include "math_operations.h"
+
+int main() {
+    double a = 5.0;
+    double b = 2.0;
+
+    std::cout << "Addition: " << MathOperations::add(a, b) << std::endl;
+    std::cout << "Subtraction: " << MathOperations::subtract(a, b) << std::endl;
+    std::cout << "Multiplication: "<< MathOperations::multiply(a, b) << std::endl;
+    std::cout << "Division: " << MathOperations::divide(a, b) << std::endl;
+
+    return 0;
+}
+
+
+
+bash
+$ g++ -c math_operations.cpp -o math_operations.o
+$ ar rcs libmath_operations.a math_operations.o
+
+
+
+bash
+$ g++ main.cpp -L. -lmath_operations -o main_static
+
+
+
+
+bash
+$ ./main_static
+
+
+
+bash
+$ g++ -fPIC -c math_operations.cpp -o math_operations.o
+$ g++ -shared -o libmath_operations.so math_operations.o
+
+
+
+bash
+$ g++ main.cpp -L. -lmath_operations -Wl,-rpath=. -o main_dynamic
+
+
+
+
+bash
+$ export LD_LIBRARY_PATH=.
+$ ./main_dynamic
+
+
+
+
+cpp
+#include <iostream>
+#include "math_operations.h"
+
+int main(int argc, char *argv[]) {
+    double a = atof(argv[1]);
+    double b = atof(argv[2]);
+
+    std::cout << "Addition: " << MathOperations::add(a, b) << std::endl;
+    std::cout << "Subtraction: " << MathOperations::subtract(a, b) << std::endl;
+    std::cout << "Multiplication: "<< MathOperations::multiply(a,b) << std::endl;
+    std::cout << "Division: " << MathOperations::divide(a, b) << std::endl;
+
+    return 0;
+}
+
+
+
+
+cpp
+int main(int argc, char *argv[]) {
+    double a = atof(argv[1]);
+    double b = atof(argv[2]);
+
+    if (b == 0) {
+        std::cout << "Cannot divide by zero!";
+
+        return 1;
+    }
+
+    std::cout << "Addition: " << MathOperations::add(a, b) << std::endl;
+    std::cout << "Subtraction: " << MathOperations::subtract(a, b) << std::endl;
+    std::cout << "Multiplication: "<< MathOperations::multiply(a,b) << std::endl;
+    std::cout << "Division: " << MathOperations::divide(a, b) << std::endl;
+
+    return 0;
+}
+
+
+
+
+bash
+$ ldd main_dynamic
+
+
+

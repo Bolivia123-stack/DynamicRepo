@@ -1,0 +1,3 @@
+g++ -c MathLib.cpp
+ar rcs libMathLib.a MathLib.o
+// файл создаст, libMathLib.a, который является статической библиотекой.

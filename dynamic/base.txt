@@ -1,0 +1,3 @@
+g++ main.cpp -L. -lMathLib -o main
+
+//Для статичекой библиотеки используется опция -lMathLib, а для динамической -Wl,-rpath,. -lMathLib.
